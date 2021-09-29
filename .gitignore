@@ -234,4 +234,9 @@ dist
 .history
 .ionide
 
+*target/**
+.project
+.settings/
+.classpath
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,intellij+all
