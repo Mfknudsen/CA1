@@ -47,8 +47,8 @@ public class Person implements Serializable {
     private List<Hobby> hobbies;
 
     @ManyToOne
-    @JoinColumn(name = "hobby_id")
-    private Hobby hobby;
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     public Person() {}
 
