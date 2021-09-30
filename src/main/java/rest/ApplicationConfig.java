@@ -1,9 +1,10 @@
 package rest;
 
 import java.util.Set;
+import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-@javax.ws.rs.ApplicationPath("api")
+@ApplicationPath("/api")
 public class ApplicationConfig extends Application {
 
     @Override
@@ -22,7 +23,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(errorhandling.GenericExceptionMapper.class);
         resources.add(org.glassfish.jersey.server.wadl.internal.WadlResource.class);
-        resources.add(rest.RenameMeResource.class);
+        resources.add(rest.Endpoints.class);
     }
     
 }
