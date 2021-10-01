@@ -1,5 +1,6 @@
 package utils;
 
+import java.io.Console;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -33,8 +34,6 @@ public class EMF_Creator {
     }
 
     private static EntityManagerFactory createEntityManagerFactory(boolean isTest) {
-
-        
         boolean isDeployed = (System.getenv("DEPLOYED") != null);
         if (isDeployed) {
             /* Strategy for deployment */
@@ -78,7 +77,7 @@ public class EMF_Creator {
             System.out.println("###### Have you started the dev and test databases? ######");
             System.out.println("######          (docker-compose up -d )             ######");
             System.out.println("##########################################################");
-            throw ex; 
+            throw ex;
         }
          return emf;
     }
