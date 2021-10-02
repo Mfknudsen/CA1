@@ -2,7 +2,6 @@ package dtos;
 
 import java.util.List;
 
-import entities.CityInfo;
 import entities.Person;
 
 public class HobbyDTO {
