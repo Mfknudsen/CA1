@@ -30,8 +30,8 @@ public class Address implements Serializable {
     @Column(name = "id")
     private long id;
 
-    @Column(name="Street")
-    private String Street;
+    @Column(name="street")
+    private String street;
 
     @Column(name="additionalInfo")
     private String additionalInfo;
@@ -45,8 +45,8 @@ public class Address implements Serializable {
 
     public Address() {}
 
-    public Address(String Street, String additionalInfo) {
-        this.Street = Street;
+    public Address(String street, String additionalInfo) {
+        this.street = street;
         this.additionalInfo = additionalInfo;
     }
     
@@ -55,11 +55,11 @@ public class Address implements Serializable {
     }
 
     public String getStreet() {
-        return Street;
+        return street;
     }
 
-    public void setStreet(String Street) {
-        this.Street = Street;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getAdditionalInfo() {
