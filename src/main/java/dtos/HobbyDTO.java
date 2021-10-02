@@ -7,17 +7,15 @@ import entities.Person;
 
 public class HobbyDTO {
     private long id;
-    private String street;
-    private String additionalInfo;
+    private String name;
+    private String description;
     private List<Person> persons;
-    private CityInfo cityInfo;
 
-    public HobbyDTO(long id, String street, String additionalInfo, List<Person> persons, CityInfo cityInfo){
+    public HobbyDTO(long id, String name, String description, List<Person> persons) {
         this.id = id;
-        this.street = street;
-        this.additionalInfo = additionalInfo;
+        this.name = name;
+        this.description = description;
         this.persons = persons;
-        this.cityInfo = cityInfo;
     }
     
 }
