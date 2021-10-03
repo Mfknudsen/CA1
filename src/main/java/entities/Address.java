@@ -21,6 +21,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "Address.deleteAllRows", query = "DELETE FROM Address"),
         @NamedQuery(name = "Address.getCount", query = "SELECT COUNT(a) FROM Address a"),
+        @NamedQuery(name = "Address.getByStreet", query = "SELECT a FROM Address a WHERE a.street LIKE :street"),
         @NamedQuery(name = "Address.getAll", query = "SELECT a FROM Address a")
 })
 public class Address implements Serializable {
