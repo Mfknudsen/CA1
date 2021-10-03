@@ -48,7 +48,7 @@ public class AddressFacade {
     public long getAddressCount(){
         EntityManager em = emf.createEntityManager();
         try{
-            long addressCount = (long)em.createQuery("Address.getCount").getSingleResult();
+            long addressCount = (long)em.createNamedQuery("Address.getCount").getSingleResult();
             return addressCount;
         }finally{  
             em.close();
@@ -57,7 +57,7 @@ public class AddressFacade {
     
     public List<AddressDTO> getAll(){
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Address> query = em.createQuery("Address.getAll", Address.class);
+        TypedQuery<Address> query = em.createNamedQuery("Address.getAll", Address.class);
         List<Address> allAddresses = query.getResultList();
         return AddressDTO.getDtos(allAddresses);
     }
@@ -66,6 +66,14 @@ public class AddressFacade {
         emf = EMF_Creator.createEntityManagerFactory();
         AddressFacade addressFacade = getInstance(emf);
         addressFacade.getAll().forEach(dto->System.out.println(dto));
+    }
+
+    public List<AddressDTO> getByStreet(String street) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Address> query = em.createNamedQuery("Address.getByStreet", Address.class);
+        query.setParameter("street", street);
+        List<Address> addresses = query.getResultList();
+        return AddressDTO.getDtos(addresses);
     }
 
 }
