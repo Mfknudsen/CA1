@@ -21,9 +21,22 @@ public class PhoneDTO {
         this.description = phone.getDescription();
     }
 
-    public static List<PhoneDTO> getDtos(List<Phone> phone){
+    public static List<PhoneDTO> getDtos(List<Phone> phone) {
         List<PhoneDTO> phoneDTO = new ArrayList<PhoneDTO>();
-        phone.forEach(_phone->phoneDTO.add(new PhoneDTO(_phone)));
+        phone.forEach(_phone -> phoneDTO.add(new PhoneDTO(_phone)));
         return phoneDTO;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
 }

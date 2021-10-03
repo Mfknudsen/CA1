@@ -25,9 +25,25 @@ public class PersonDTO {
         this.lastName = person.getLastName();
     }
 
-    public static List<PersonDTO> getDtos(List<Person> person){
+    public static List<PersonDTO> getDtos(List<Person> person) {
         List<PersonDTO> personDTO = new ArrayList<PersonDTO>();
-        person.forEach(_person->personDTO.add(new PersonDTO(_person)));
+        person.forEach(_person -> personDTO.add(new PersonDTO(_person)));
         return personDTO;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }

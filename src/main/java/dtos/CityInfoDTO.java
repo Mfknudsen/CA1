@@ -22,9 +22,21 @@ public class CityInfoDTO {
         this.city = cityInfo.getCity();
     }
 
-    public static List<CityInfoDTO> getDtos(List<CityInfo> cityInfo){
+    public static List<CityInfoDTO> getDtos(List<CityInfo> cityInfo) {
         List<CityInfoDTO> addressDTO = new ArrayList<CityInfoDTO>();
-        cityInfo.forEach(_cityInfo->addressDTO.add(new CityInfoDTO(_cityInfo)));
+        cityInfo.forEach(_cityInfo -> addressDTO.add(new CityInfoDTO(_cityInfo)));
         return addressDTO;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public String getCity() {
+        return city;
     }
 }

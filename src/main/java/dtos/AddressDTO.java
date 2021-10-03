@@ -22,9 +22,22 @@ public class AddressDTO {
         this.additionalInfo = address.getAdditionalInfo();
     }
 
-    public static List<AddressDTO> getDtos(List<Address> address){
+    public static List<AddressDTO> getDtos(List<Address> address) {
         List<AddressDTO> addressDTO = new ArrayList<AddressDTO>();
-        address.forEach(_address->addressDTO.add(new AddressDTO(_address)));
+        address.forEach(_address -> addressDTO.add(new AddressDTO(_address)));
         return addressDTO;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
+
 }

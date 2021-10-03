@@ -28,10 +28,30 @@ public class HobbyDTO {
         this.type = hobby.getType();
     }
 
-    public static List<HobbyDTO> getDtos(List<Hobby> hobby){
+    public static List<HobbyDTO> getDtos(List<Hobby> hobby) {
         List<HobbyDTO> hobbyDTO = new ArrayList<HobbyDTO>();
-        hobby.forEach(_hobby->hobbyDTO.add(new HobbyDTO(_hobby)));
+        hobby.forEach(_hobby -> hobbyDTO.add(new HobbyDTO(_hobby)));
         return hobbyDTO;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getWikiLink() {
+        return wikiLink;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getType() {
+        return type;
     }
     
 }
