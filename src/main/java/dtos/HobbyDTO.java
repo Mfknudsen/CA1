@@ -8,18 +8,24 @@ import entities.Hobby;
 public class HobbyDTO {
     private long id;
     private String name;
-    private String description;
+    private String wikiLink;
+    private String category;
+    private String type;
 
-    public HobbyDTO(String name, String description) {
+    public HobbyDTO(String name, String wikiLink, String category, String type) {
         this.name = name;
-        this.description = description;
+        this.wikiLink = wikiLink;
+        this.category = category;
+        this.type = type;
     }
 
     public HobbyDTO(Hobby hobby) {
         if(hobby.getId() != null)
             this.id = hobby.getId();
         this.name = hobby.getName();
-        this.description = hobby.getDescription();
+        this.wikiLink = hobby.getWikiLink();
+        this.category = hobby.getCategory();
+        this.type = hobby.getType();
     }
 
     public static List<HobbyDTO> getDtos(List<Hobby> hobby){
