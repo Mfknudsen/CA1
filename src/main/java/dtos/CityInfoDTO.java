@@ -1,19 +1,30 @@
 package dtos;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import entities.Address;
+import entities.CityInfo;
 
 public class CityInfoDTO {
     private long id;
     private String zipCode;
     private String city;
-    private List<Address> addresses;
     
-    public CityInfoDTO(long id, String zipCode, String city, List<Address> addresses) {
-        this.id = id;
+    public CityInfoDTO(String zipCode, String city) {
         this.zipCode = zipCode;
         this.city = city;
-        this.addresses = addresses;
+    }
+
+    public CityInfoDTO(CityInfo cityInfo) {
+        if(cityInfo.getId() != null)
+            this.id = cityInfo.getId();
+        this.zipCode = cityInfo.getZipCode();
+        this.city = cityInfo.getCity();
+    }
+
+    public static List<CityInfoDTO> getDtos(List<CityInfo> cityInfo){
+        List<CityInfoDTO> addressDTO = new ArrayList<CityInfoDTO>();
+        cityInfo.forEach(_cityInfo->addressDTO.add(new CityInfoDTO(_cityInfo)));
+        return addressDTO;
     }
 }

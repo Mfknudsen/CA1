@@ -1,17 +1,29 @@
 package dtos;
 
-import entities.Person;
+import java.util.ArrayList;
+import java.util.List;
+
+import entities.Phone;
 
 public class PhoneDTO {
     private long id;
     private String number;
     private String description;
-    private Person person;
 
-    public PhoneDTO(long id, String number, String description, Person person) {
-        this.id = id;
+    public PhoneDTO(String number, String description) {
         this.number = number;
         this.description = description;
-        this.person = person;
+    }
+    public PhoneDTO(Phone phone) {
+        if(phone.getId() != null)
+            this.id = phone.getId();
+        this.number = phone.getNumber();
+        this.description = phone.getDescription();
+    }
+
+    public static List<PhoneDTO> getDtos(List<Phone> phone){
+        List<PhoneDTO> phoneDTO = new ArrayList<PhoneDTO>();
+        phone.forEach(_phone->phoneDTO.add(new PhoneDTO(_phone)));
+        return phoneDTO;
     }
 }

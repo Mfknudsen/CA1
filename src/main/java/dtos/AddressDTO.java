@@ -1,22 +1,30 @@
 package dtos;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import entities.CityInfo;
-import entities.Person;
+import entities.Address;
 
 public class AddressDTO {
     private long id;
     private String street;
     private String additionalInfo;
-    private List<Person> persons;
-    private CityInfo cityInfo;
 
-    public AddressDTO(long id, String street, String additionalInfo, List<Person> persons, CityInfo cityInfo){
-        this.id = id;
+    public AddressDTO(String street, String additionalInfo){
         this.street = street;
         this.additionalInfo = additionalInfo;
-        this.persons = persons;
-        this.cityInfo = cityInfo;
+    }
+
+    public AddressDTO(Address address) {
+        if(address.getId() != null)
+            this.id = address.getId();
+        this.street = address.getStreet();
+        this.additionalInfo = address.getAdditionalInfo();
+    }
+
+    public static List<AddressDTO> getDtos(List<Address> address){
+        List<AddressDTO> addressDTO = new ArrayList<AddressDTO>();
+        address.forEach(_address->addressDTO.add(new AddressDTO(_address)));
+        return addressDTO;
     }
 }

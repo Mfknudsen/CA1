@@ -1,27 +1,33 @@
 package dtos;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import entities.Address;
-import entities.Hobby;
+import entities.Person;
 
 public class PersonDTO {
     private long id;
     private String email;
     private String firstName;
     private String lastName;
-    private List<Phone> phones;
-    private List<Hobby> hobbies;
-    private Address address;
 
-    public PersonDTO(long id, String email, String firstName, String lastName,
-    List<Phone> phones,List<Hobby> hobbies, Address address) {
-        this.id = id;
+    public PersonDTO(String email, String firstName, String lastName) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phones = phones;
-        this.hobbies = hobbies;
-        this.address = address;
+    }
+
+    public PersonDTO(Person person) {
+        if(person.getId() != null)
+            this.id = person.getId();
+        this.email = person.getEmail();
+        this.firstName = person.getFirstName();
+        this.lastName = person.getLastName();
+    }
+
+    public static List<PersonDTO> getDtos(List<Person> person){
+        List<PersonDTO> personDTO = new ArrayList<PersonDTO>();
+        person.forEach(_person->personDTO.add(new PersonDTO(_person)));
+        return personDTO;
     }
 }
