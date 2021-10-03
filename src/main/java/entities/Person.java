@@ -59,7 +59,7 @@ public class Person implements Serializable {
     }
     
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

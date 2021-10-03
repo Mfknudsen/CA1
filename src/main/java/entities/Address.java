@@ -50,7 +50,7 @@ public class Address implements Serializable {
         this.additionalInfo = additionalInfo;
     }
     
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

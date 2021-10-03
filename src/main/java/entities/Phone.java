@@ -44,7 +44,7 @@ public class Phone implements Serializable {
         this.description = description;
     }
     
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

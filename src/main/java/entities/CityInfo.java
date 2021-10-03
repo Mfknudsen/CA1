@@ -44,7 +44,7 @@ public class CityInfo implements Serializable {
         this.city = city;
     }
     
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
