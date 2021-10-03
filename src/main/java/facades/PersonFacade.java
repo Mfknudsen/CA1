@@ -48,7 +48,7 @@ public class PersonFacade {
     public long getPersonCount(){
         EntityManager em = emf.createEntityManager();
         try{
-            long personCount = (long)em.createQuery("Person.getCount").getSingleResult();
+            long personCount = (long)em.createNamedQuery("Person.getCount").getSingleResult();
             return personCount;
         }finally{  
             em.close();
@@ -57,7 +57,7 @@ public class PersonFacade {
     
     public List<PersonDTO> getAll(){
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Person> query = em.createQuery("Person.getAll", Person.class);
+        TypedQuery<Person> query = em.createNamedQuery("Person.getAll", Person.class);
         List<Person> allPersons = query.getResultList();
         return PersonDTO.getDtos(allPersons);
     }
