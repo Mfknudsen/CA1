@@ -18,6 +18,7 @@ import java.util.List;
 @Table(name = "CityInfo")
 @NamedQueries({
         @NamedQuery(name = "CityInfo.deleteAllRows", query = "DELETE FROM CityInfo"),
+        @NamedQuery(name = "CityInfo.getCount", query = "SELECT COUNT(c) FROM CityInfo c"),
         @NamedQuery(name = "CityInfo.getAll", query = "SELECT c FROM CityInfo c")
 })
 public class CityInfo implements Serializable {

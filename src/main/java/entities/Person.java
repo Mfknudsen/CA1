@@ -21,6 +21,7 @@ import java.util.List;
 @Table(name = "Person")
 @NamedQueries({
         @NamedQuery(name = "Person.deleteAllRows", query = "DELETE FROM Person"),
+        @NamedQuery(name = "Person.getCount", query = "SELECT COUNT(p) FROM Person p"),
         @NamedQuery(name = "Person.getAll", query = "SELECT p FROM Person p")
 })
 public class Person implements Serializable {

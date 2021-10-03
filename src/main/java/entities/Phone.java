@@ -17,6 +17,7 @@ import java.io.Serializable;
 @Table(name = "Phone")
 @NamedQueries({
         @NamedQuery(name = "Phone.deleteAllRows", query = "DELETE FROM Phone"),
+        @NamedQuery(name = "Phone.getCount", query = "SELECT COUNT(p) FROM Phone p"),
         @NamedQuery(name = "Phone.getAll", query = "SELECT p FROM Phone p")
 })
 public class Phone implements Serializable {

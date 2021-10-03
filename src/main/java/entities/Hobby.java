@@ -19,6 +19,7 @@ import java.util.List;
 @Table(name = "Hobby")
 @NamedQueries({
         @NamedQuery(name = "Hobby.deleteAllRows", query = "DELETE FROM Hobby"),
+        @NamedQuery(name = "Hobby.getCount", query = "SELECT COUNT(h) FROM Hobby h"),
         @NamedQuery(name = "Hobby.getAll", query = "SELECT h FROM Hobby h")
 })
 public class Hobby implements Serializable {
