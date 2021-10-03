@@ -32,8 +32,14 @@ public class Hobby implements Serializable {
     @Column(name="name")
     private String name;
 
-    @Column(name="description")
-    private String description;
+    @Column(name="wikiLink")
+    private String wikiLink;
+
+    @Column(name="type")
+    private String type;
+
+    @Column(name="category")
+    private String category;
 
     @ManyToMany
     @JoinTable(name = "person_linked_hobby",
@@ -43,9 +49,11 @@ public class Hobby implements Serializable {
 
     public Hobby() {}
 
-    public Hobby(String name, String description) {
+    public Hobby(String name, String wikiLink, String type, String category) {
         this.name = name;
-        this.description = description;
+        this.wikiLink = wikiLink;
+        this.type = type;
+        this.category = category;
     }
     
     public Long getId() {
@@ -60,12 +68,27 @@ public class Hobby implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getWikiLink() {
+        return wikiLink;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setWikiLink(String wikiLink) {
+        this.wikiLink = wikiLink;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
 
