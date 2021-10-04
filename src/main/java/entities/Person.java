@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -57,8 +58,52 @@ public class Person implements Serializable {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phones = new ArrayList<>();
+        this.hobbies = new ArrayList<>();
+        this.address = new Address();
+    }
+
+    public void addPhone(Phone phone) {
+        if (phones != null) {
+            this.phones.add(phone);
+            phone.setPerson(this);
+        }
+    }
+
+    public void removePhone(Phone phone) {
+        if (phones != null) {
+            this.phones.remove(phone);
+            phone.removePerson(this);
+        }
+    }
+
+    public void addHobby(Hobby hobby) {
+        if (hobbies != null) {
+            this.hobbies.add(hobby);
+            hobby.addPerson(this);
+        }
+    }
+
+    public void removeHobby(Hobby hobby) {
+        if (hobby != null) {
+            this.hobbies.remove(hobby);
+            hobby.removePerson(this);
+        }
     }
     
+    public void setAddress(Address address) {
+        if (address != null) {
+            this.address = address;
+            address.addPerson(this);
+        }
+    }
+
+    public void removeAddress(Address address) {
+        if (address != null) {
+            this.address = new Address();
+            address.removePerson(this);
+        }
+    }
 
     public Long getId() {
         return id;
