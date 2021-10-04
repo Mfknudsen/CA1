@@ -34,7 +34,7 @@ public class HobbyDTO {
         return hobbyDTO;
     }
 
-    public long getId() {
+    public long getId(int i) {
         return id;
     }
 

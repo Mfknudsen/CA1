@@ -48,7 +48,7 @@ public class PhoneFacade {
     public long getPhoneCount(){
         EntityManager em = emf.createEntityManager();
         try{
-            long phoneCount = (long)em.createQuery("Phone.getCount").getSingleResult();
+            long phoneCount = (long)em.createNamedQuery("Phone.getCount").getSingleResult();
             return phoneCount;
         }finally{  
             em.close();
@@ -57,7 +57,7 @@ public class PhoneFacade {
     
     public List<PhoneDTO> getAll(){
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Phone> query = em.createQuery("Phone.getAll", Phone.class);
+        TypedQuery<Phone> query = em.createNamedQuery("Phone.getAll", Phone.class);
         List<Phone> allPhones = query.getResultList();
         return PhoneDTO.getDtos(allPhones);
     }

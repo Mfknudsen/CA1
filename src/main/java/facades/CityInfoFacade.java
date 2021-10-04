@@ -48,7 +48,7 @@ public class CityInfoFacade {
     public long getCityInfoCount(){
         EntityManager em = emf.createEntityManager();
         try{
-            long cityInfoCount = (long)em.createQuery("CityInfo.getCount").getSingleResult();
+            long cityInfoCount = (long)em.createNamedQuery("CityInfo.getCount").getSingleResult();
             return cityInfoCount;
         }finally{  
             em.close();
@@ -57,7 +57,7 @@ public class CityInfoFacade {
     
     public List<CityInfoDTO> getAll(){
         EntityManager em = emf.createEntityManager();
-        TypedQuery<CityInfo> query = em.createQuery("CityInfo.getAll", CityInfo.class);
+        TypedQuery<CityInfo> query = em.createNamedQuery("CityInfo.getAll", CityInfo.class);
         List<CityInfo> allCityInfo = query.getResultList();
         return CityInfoDTO.getDtos(allCityInfo);
     }

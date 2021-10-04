@@ -48,7 +48,7 @@ public class HobbyFacade {
     public long getHobbyCount(){
         EntityManager em = emf.createEntityManager();
         try{
-            long hobbyCount = (long)em.createQuery("Hobby.getCount").getSingleResult();
+            long hobbyCount = (long)em.createNamedQuery("Hobby.getCount").getSingleResult();
             return hobbyCount;
         }finally{  
             em.close();
@@ -57,7 +57,7 @@ public class HobbyFacade {
     
     public List<HobbyDTO> getAll(){
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Hobby> query = em.createQuery("Hobby.getAll", Hobby.class);
+        TypedQuery<Hobby> query = em.createNamedQuery("Hobby.getAll", Hobby.class);
         List<Hobby> allHobby = query.getResultList();
         return HobbyDTO.getDtos(allHobby);
     }
