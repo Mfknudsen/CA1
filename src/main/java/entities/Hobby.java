@@ -13,6 +13,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -55,6 +56,15 @@ public class Hobby implements Serializable {
         this.wikiLink = wikiLink;
         this.type = type;
         this.category = category;
+        this.persons = new ArrayList<>();
+    }
+
+    public void addPerson(Person person) {
+        this.persons.add(person);
+    }
+
+    public void removePerson(Person person) {
+        this.persons.remove(person);
     }
     
     public Long getId() {
@@ -92,4 +102,3 @@ public class Hobby implements Serializable {
         this.category = category;
     }
 }
-
