@@ -43,6 +43,17 @@ public class Phone implements Serializable {
     public Phone(String number, String description) {
         this.number = number;
         this.description = description;
+        this.person = new Person();
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public void removePerson(Person person) {
+        if(this.person.equals(person))
+            this.person = new Person();
+
     }
     
     public Long getId() {
