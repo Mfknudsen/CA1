@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -50,6 +51,30 @@ public class Address implements Serializable {
     public Address(String street, String additionalInfo) {
         this.street = street;
         this.additionalInfo = additionalInfo;
+        this.persons = new ArrayList<>();
+        this.cityInfo = new CityInfo();
+    }
+
+    public void addPerson(Person person) {
+        this.persons.add(person);
+    }
+
+    public void removePerson(Person person) {
+        this.persons.remove(person);
+    }
+    
+    public void setCityInfo(CityInfo cityInfo) {
+        if (cityInfo != null) {
+            this.cityInfo = cityInfo;
+            cityInfo.addAddress(this);
+        }
+    }
+
+    public void removeCityInfo(CityInfo cityInfo) {
+        if (cityInfo != null) {
+            this.cityInfo = new CityInfo();
+            cityInfo.removeAddress(this);
+        }
     }
     
     public Long getId() {
