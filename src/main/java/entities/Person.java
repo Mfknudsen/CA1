@@ -1,18 +1,6 @@
 package entities;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,26 +21,27 @@ public class Person implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name="firstName")
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name="lastName")
+    @Column(name = "lastName")
     private String lastName;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
     private List<Phone> phones;
 
-    @ManyToMany(mappedBy = "persons", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "persons", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private List<Hobby> hobbies;
 
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
 
-    public Person() {}
+    public Person() {
+    }
 
     public Person(String email, String firstName, String lastName) {
         this.email = email;
@@ -90,7 +79,7 @@ public class Person implements Serializable {
             hobby.removePerson(this);
         }
     }
-    
+
     public void setAddress(Address address) {
         if (address != null) {
             this.address = address;

@@ -2,7 +2,6 @@ package facades;
 
 import dtos.PersonDTO;
 import entities.Person;
-import entities.RenameMe;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
 
@@ -29,11 +28,8 @@ public class PersonFacadeTest {
 
     @AfterAll
     public static void tearDownClass() {
-//        Clean up database after test is done or use a persistence unit with drop-and-create to start up clean on every test
     }
 
-    // Setup the DataBase in a known state BEFORE EACH TEST
-    //TODO -- Make sure to change the code below to use YOUR OWN entity class
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
@@ -51,10 +47,8 @@ public class PersonFacadeTest {
 
     @AfterEach
     public void tearDown() {
-//        Remove any data after each test was run
     }
 
-    // TODO: Delete or change this method
     @Test
     public void testGetByID() throws Exception {
         int id = 1;

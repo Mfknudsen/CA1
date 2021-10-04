@@ -12,7 +12,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-//Todo Remove or change relevant parts before ACTUAL use
 @Path("/users")
 public class Endpoints {
 
