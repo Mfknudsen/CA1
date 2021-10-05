@@ -2,13 +2,15 @@ package facades;
 
 import dtos.PersonDTO;
 import entities.Person;
+import interfaces.IFacade;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import utils.EMF_Creator;
 
-public class PersonFacade {
+public class PersonFacade implements IFacade <PersonDTO>{
 
     private static PersonFacade instance;
     private static EntityManagerFactory emf;
@@ -45,7 +47,7 @@ public class PersonFacade {
         return new PersonDTO(em.find(Person.class, id));
     }
     
-    public long getPersonCount(){
+    public long getCount(){
         EntityManager em = emf.createEntityManager();
         try{
             long personCount = (long)em.createNamedQuery("Person.getCount").getSingleResult();
@@ -61,11 +63,19 @@ public class PersonFacade {
         List<Person> allPersons = query.getResultList();
         return PersonDTO.getDtos(allPersons);
     }
+
+    @Override
+    public List<PersonDTO> getSpecific(String name) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Person> query = em.createNamedQuery("Person.getPerson", Person.class);
+        query.setParameter("firstName", name);
+        List<Person> persons = query.getResultList();
+        return PersonDTO.getDtos(persons);
+    }
     
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
         PersonFacade PersonFacade = getInstance(emf);
         PersonFacade.getAll().forEach(dto->System.out.println(dto));
     }
-
 }

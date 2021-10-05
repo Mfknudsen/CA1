@@ -2,13 +2,15 @@ package facades;
 
 import dtos.AddressDTO;
 import entities.Address;
+import interfaces.IFacade;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import utils.EMF_Creator;
 
-public class AddressFacade {
+public class AddressFacade implements IFacade <AddressDTO>{
 
     private static AddressFacade instance;
     private static EntityManagerFactory emf;
@@ -45,7 +47,7 @@ public class AddressFacade {
         return new AddressDTO(em.find(Address.class, id));
     }
     
-    public long getAddressCount(){
+    public long getCount(){
         EntityManager em = emf.createEntityManager();
         try{
             long addressCount = (long)em.createNamedQuery("Address.getCount").getSingleResult();
@@ -68,12 +70,11 @@ public class AddressFacade {
         addressFacade.getAll().forEach(dto->System.out.println(dto));
     }
 
-    public List<AddressDTO> getByStreet(String street) {
+    public List<AddressDTO> getSpecific(String street) {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Address> query = em.createNamedQuery("Address.getByStreet", Address.class);
         query.setParameter("street", street);
         List<Address> addresses = query.getResultList();
         return AddressDTO.getDtos(addresses);
     }
-
 }
