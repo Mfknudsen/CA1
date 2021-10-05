@@ -3,7 +3,6 @@ package facades;
 import dtos.PhoneDTO;
 import entities.Phone;
 import utils.EMF_Creator;
-import entities.RenameMe;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -74,7 +73,7 @@ public class PhoneFacadeTest {
     @Test
     public void testGetCount() throws Exception {
         int expected = 2;
-        long actual = facade.getPhoneCount();
+        long actual = facade.getCount();
         assertEquals(expected, actual);
     }
 

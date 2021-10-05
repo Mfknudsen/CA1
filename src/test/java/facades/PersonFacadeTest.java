@@ -59,7 +59,7 @@ public class PersonFacadeTest {
     @Test
     public void testGetPersonCount() throws Exception {
         int expected = 2;
-        Long actual = facade.getPersonCount();
+        Long actual = facade.getCount();
         assertEquals(expected, actual);
     }
 

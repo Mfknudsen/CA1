@@ -31,7 +31,7 @@ public class PersonFacade implements IFacade <PersonDTO>{
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
+
     public PersonDTO create(PersonDTO hobbyDTO){
         Person person = new Person(hobbyDTO.getEmail(), hobbyDTO.getFirstName(), hobbyDTO.getLastName());
         EntityManager em = emf.createEntityManager();

@@ -6,9 +6,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+
+import interfaces.IFacade;
 import utils.EMF_Creator;
 
-public class HobbyFacade {
+public class HobbyFacade implements IFacade<HobbyDTO> {
 
     private static HobbyFacade instance;
     private static EntityManagerFactory emf;
@@ -45,7 +47,7 @@ public class HobbyFacade {
         return new HobbyDTO(em.find(Hobby.class, id));
     }
     
-    public long getHobbyCount(){
+    public long getCount(){
         EntityManager em = emf.createEntityManager();
         try{
             long hobbyCount = (long)em.createNamedQuery("Hobby.getCount").getSingleResult();
@@ -61,7 +63,12 @@ public class HobbyFacade {
         List<Hobby> allHobby = query.getResultList();
         return HobbyDTO.getDtos(allHobby);
     }
-    
+
+    @Override
+    public List<HobbyDTO> getSpecific(String one) {
+        return null;
+    }
+
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
         HobbyFacade hobbyFacade = getInstance(emf);
