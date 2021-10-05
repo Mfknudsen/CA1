@@ -33,16 +33,16 @@ public class PersonFacade implements IFacade <PersonDTO>{
     }
     
     public PersonDTO create(PersonDTO hobbyDTO){
-        Person hobby = new Person(hobbyDTO.getEmail(), hobbyDTO.getFirstName(), hobbyDTO.getLastName());
+        Person person = new Person(hobbyDTO.getEmail(), hobbyDTO.getFirstName(), hobbyDTO.getLastName());
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(hobby);
+            em.persist(person);
             em.getTransaction().commit();
         } finally {
             em.close();
         }
-        return new PersonDTO(hobby);
+        return new PersonDTO(person);
     }
 
     public PersonDTO getById(long id){
