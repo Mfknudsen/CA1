@@ -1,7 +1,10 @@
 package facades;
 
 import dtos.PersonDTO;
+import entities.Address;
+import entities.Hobby;
 import entities.Person;
+import entities.Phone;
 import interfaces.IFacade;
 
 import java.util.List;
@@ -55,6 +58,30 @@ public class PersonFacade implements IFacade <PersonDTO>{
         }finally{  
             em.close();
         }
+    }
+
+    public void addPhone(Person person, Phone phone) {
+        person.addPhone(phone);
+    }
+
+    public void removePhone(Person person, Phone phone) {
+        person.removePhone(phone);
+    }
+
+    public void addHobby(Person person, Hobby hobby) {
+        person.addHobby(hobby);
+    }
+
+    public void removeHobby(Person person, Hobby hobby) {
+        person.removeHobby(hobby);
+    }
+
+    public void setAddress(Person person, Address address) {
+        person.setAddress(address);
+    }
+
+    public void removeAddress(Person person, Address address) {
+        person.removeAddress(address);
     }
     
     public List<PersonDTO> getAll(){
