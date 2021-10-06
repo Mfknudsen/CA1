@@ -11,7 +11,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "Person.deleteAllRows", query = "DELETE FROM Person"),
         @NamedQuery(name = "Person.getCount", query = "SELECT COUNT(p) FROM Person p"),
-        @NamedQuery(name = "Person.getPerson", query = "SELECT p FROM Person p where p.name LIKE :firstName"),
+        @NamedQuery(name = "Person.getPerson", query = "SELECT p FROM Person p where p.firstName LIKE :firstName"),
         @NamedQuery(name = "Person.getAll", query = "SELECT p FROM Person p")
 })
 public class Person implements Serializable {
@@ -31,13 +31,13 @@ public class Person implements Serializable {
     @Column(name = "lastName")
     private String lastName;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "person", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     private List<Phone> phones;
 
     @ManyToMany(mappedBy = "persons", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private List<Hobby> hobbies;
 
-    @ManyToOne
+    @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")
     private Address address;
 
@@ -122,4 +122,6 @@ public class Person implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+
 }

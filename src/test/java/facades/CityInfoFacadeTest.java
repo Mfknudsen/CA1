@@ -60,7 +60,7 @@ public class CityInfoFacadeTest {
     @Test
     public void testGetCount() throws Exception {
         int expected = 2;
-        long actual = facade.getCityInfoCount();
+        long actual = facade.getCount();
         assertEquals(expected, actual);
     }
 

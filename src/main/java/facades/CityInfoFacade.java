@@ -6,9 +6,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+
+import interfaces.IFacade;
 import utils.EMF_Creator;
 
-public class CityInfoFacade {
+public class CityInfoFacade implements IFacade<CityInfoDTO> {
 
     private static CityInfoFacade instance;
     private static EntityManagerFactory emf;
@@ -45,7 +47,7 @@ public class CityInfoFacade {
         return new CityInfoDTO(em.find(CityInfo.class, id));
     }
     
-    public long getCityInfoCount(){
+    public long getCount(){
         EntityManager em = emf.createEntityManager();
         try{
             long cityInfoCount = (long)em.createNamedQuery("CityInfo.getCount").getSingleResult();
@@ -61,7 +63,12 @@ public class CityInfoFacade {
         List<CityInfo> allCityInfo = query.getResultList();
         return CityInfoDTO.getDtos(allCityInfo);
     }
-    
+
+    @Override
+    public List<CityInfoDTO> getSpecific(String one) {
+        return null;
+    }
+
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
         CityInfoFacade cityInfoFacade = getInstance(emf);
