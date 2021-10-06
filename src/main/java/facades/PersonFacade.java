@@ -27,10 +27,6 @@ public class PersonFacade implements IFacade <PersonDTO>{
         }
         return instance;
     }
-
-    private EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
     
     public PersonDTO create(PersonDTO hobbyDTO){
         Person person = new Person(hobbyDTO.getEmail(), hobbyDTO.getFirstName(), hobbyDTO.getLastName());
@@ -60,28 +56,86 @@ public class PersonFacade implements IFacade <PersonDTO>{
         }
     }
 
-    public void addPhone(Person person, Phone phone) {
+    public void addPhone(long id, Phone phone) {
+        EntityManager em = emf.createEntityManager();
+        Person person = em.find(Person.class, id);
         person.addPhone(phone);
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 
-    public void removePhone(Person person, Phone phone) {
+    public void removePhone(long id, Phone phone) {
+        EntityManager em = emf.createEntityManager();
+        Person person = em.find(Person.class, id);
         person.removePhone(phone);
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 
-    public void addHobby(Person person, Hobby hobby) {
+    public void addHobby(long id, Hobby hobby) {
+        EntityManager em = emf.createEntityManager();
+        Person person = em.find(Person.class, id);
         person.addHobby(hobby);
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 
-    public void removeHobby(Person person, Hobby hobby) {
+    public void removeHobby(long id, Hobby hobby) {
+        EntityManager em = emf.createEntityManager();
+        Person person = em.find(Person.class, id);
         person.removeHobby(hobby);
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 
-    public void setAddress(Person person, Address address) {
+    public void setAddress(long id, Address address) {
+        EntityManager em = emf.createEntityManager();
+        Person person = em.find(Person.class, id);
         person.setAddress(address);
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 
-    public void removeAddress(Person person, Address address) {
+    public void removeAddress(long id, Address address) {
+        EntityManager em = emf.createEntityManager();
+        Person person = em.find(Person.class, id);
         person.removeAddress(address);
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Hobby getHobbyByName(String string) {
+        return null;
     }
     
     public List<PersonDTO> getAll(){
