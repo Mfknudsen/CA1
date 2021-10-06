@@ -152,22 +152,45 @@ public class PersonFacade implements IFacade<PersonDTO> {
     public List<PersonDTO> getSpecific(String valueType, String value) {
         EntityManager em = emf.createEntityManager();
 
-        if (valueType.equals("FirstName")) {
+        if (valueType.equals("City")) {
+            String[] values = value.split(" ");
+
+            TypedQuery<Person> query = em.createNamedQuery("Person.getByCity", Person.class);
+
+            query.setParameter("zip", values[0]);
+            query.setParameter("name", values[1]);
+
+            List<Person> personList = query.getResultList();
+
+            return PersonDTO.getDtos(personList);
+
+        } else if (valueType.equals("FirstName")) {
             TypedQuery<Person> query = em.createNamedQuery("Person.getPerson", Person.class);
+
             query.setParameter("firstName", value);
+
             List<Person> persons = query.getResultList();
+
             return PersonDTO.getDtos(persons);
+
         } else if (valueType.equals("Phone")) {
             TypedQuery<Person> query = em.createNamedQuery("Person.getByPhone", Person.class);
-            query.setParameter("number", "22222222");
-            System.out.println(query.getResultList().size());
+
+            query.setParameter("number", value);
+
             Person person = query.getSingleResult();
+
             return PersonDTO.getDtos(Collections.singletonList(person));
+
         } else {
+            TypedQuery<Person> query = em.createNamedQuery("Person.getCountByHobby", Person.class);
+
+            query.setParameter("name", value);
+
+            List<Person> personList = query.getResultList();
+
+            return PersonDTO.getDtos(personList);
         }
-
-
-        return null;
     }
 
     public static void main(String[] args) {

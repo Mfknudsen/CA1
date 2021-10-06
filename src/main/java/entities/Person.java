@@ -13,7 +13,9 @@ import java.util.List;
         @NamedQuery(name = "Person.getCount", query = "SELECT COUNT(p) FROM Person p"),
         @NamedQuery(name = "Person.getPerson", query = "SELECT p FROM Person p where p.firstName LIKE :firstName"),
         @NamedQuery(name = "Person.getAll", query = "SELECT p FROM Person p"),
-        @NamedQuery(name = "Person.getByPhone", query = "select p from Person p where p.id in(select a.person.id from Phone a where a.number like :number) ")
+        @NamedQuery(name = "Person.getByPhone", query = "SELECT per FROM Person per WHERE per.id IN (SELECT pho.person.id FROM Phone pho WHERE pho.number LIKE :number)"),
+        @NamedQuery(name = "Person.getCountByHobby", query = "SELECT p FROM Person p WHERE p.hobbies IN (SELECT h FROM Hobby h WHERE h.name LIKE :name)"),
+        @NamedQuery(name = "Person.getByCity", query = "SELECT p FROM Person p WHERE (p.address.cityInfo.zipCode LIKE :name) AND (p.address.cityInfo.zipCode LIKE :zip)")
 })
 public class Person implements Serializable {
 
@@ -32,13 +34,13 @@ public class Person implements Serializable {
     @Column(name = "lastName")
     private String lastName;
 
-    @OneToMany(mappedBy = "person", cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "person", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private List<Phone> phones;
 
     @ManyToMany(mappedBy = "persons", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private List<Hobby> hobbies;
 
-    @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")
     private Address address;
 
