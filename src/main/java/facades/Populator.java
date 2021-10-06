@@ -7,7 +7,12 @@ package facades;
 
 import dtos.PersonDTO;
 import entities.Person;
+
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
+import com.mysql.cj.xdevapi.Statement;
+
 import utils.EMF_Creator;
 
 /**
@@ -28,6 +33,28 @@ public class Populator {
 
         personFacade.addHobby(person1.getId(), personFacade.getHobbyByName("Blogging"));
 
+    }
+
+    public static void populateHobbies() {
+        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
+        EntityManager em = emf.createEntityManager();
+        em.createQuery("BULK INSERT startcode.Hobby " +
+                        "FROM '../resources/hobbyScript.sql' " +
+                        "WITH " +
+                        "( " +
+                        "ROWTERMINATOR ='\n' " +
+                        ")");
+    }
+
+    public static void populateZip() {
+        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
+        EntityManager em = emf.createEntityManager();
+        em.createQuery("BULK INSERT startcode.CityInfo " +
+                        "FROM '../resources/zipScript.sql' " +
+                        "WITH " +
+                        "( " +
+                        "ROWTERMINATOR ='\n' " +
+                        ")");
     }
     
     public static void main(String[] args) {
