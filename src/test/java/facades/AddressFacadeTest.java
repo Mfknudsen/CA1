@@ -76,13 +76,13 @@ public class AddressFacadeTest {
     @Test
     public void getByStreet() throws Exception{
         String expected = "10";
-        String actual = facade.getByStreet("Schulist Bridge").get(0).getAdditionalInfo();
+        String actual = facade.getSpecific("Schulist Bridge").get(0).getAdditionalInfo();
         assertEquals(expected, actual, "Expects first address by street to have additional info of 10");
     }
 
     @Test
     public void getAddressCount() throws Exception{
-        assertEquals(2, facade.getAddressCount(), "Expects two rows in the database");
+        assertEquals(2, facade.getCount(), "Expects two rows in the database");
     }
 
     @Test
