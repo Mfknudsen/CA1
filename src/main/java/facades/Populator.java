@@ -6,9 +6,7 @@
 package facades;
 
 import dtos.PersonDTO;
-import dtos.RenameMeDTO;
 import entities.Person;
-import entities.RenameMe;
 import javax.persistence.EntityManagerFactory;
 import utils.EMF_Creator;
 
@@ -28,7 +26,7 @@ public class Populator {
         PersonDTO person4 = personFacade.create(new PersonDTO(new Person("Adelbert_Walter@example.org","Jarod","O'Kon")));
         PersonDTO person5 = personFacade.create(new PersonDTO(new Person("Bernadette60@example.org","Anthony","Block")));
 
-        // person1.addHobby
+        personFacade.addHobby(person1.getId(), personFacade.getHobbyByName("Blogging"));
 
     }
     
