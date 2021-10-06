@@ -7,5 +7,5 @@ public interface IFacade <T> {
     public T getById(long id);
     public long getCount();
     public List<T> getAll();
-    public List<T> getSpecific(String one);
+    public List<T> getSpecific(String valueType ,String value);
 }

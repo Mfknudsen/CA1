@@ -76,7 +76,7 @@ public class AddressFacadeTest {
     @Test
     public void getSpecific() throws Exception{
         String expected = "10";
-        String actual = facade.getSpecific("Schulist Bridge").get(0).getAdditionalInfo();
+        String actual = facade.getSpecific("firstName","Schulist Bridge").get(0).getAdditionalInfo();
         assertEquals(expected, actual, "Expects first address by street to have additional info of 10");
     }
 

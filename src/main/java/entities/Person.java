@@ -12,7 +12,8 @@ import java.util.List;
         @NamedQuery(name = "Person.deleteAllRows", query = "DELETE FROM Person"),
         @NamedQuery(name = "Person.getCount", query = "SELECT COUNT(p) FROM Person p"),
         @NamedQuery(name = "Person.getPerson", query = "SELECT p FROM Person p where p.firstName LIKE :firstName"),
-        @NamedQuery(name = "Person.getAll", query = "SELECT p FROM Person p")
+        @NamedQuery(name = "Person.getAll", query = "SELECT p FROM Person p"),
+        @NamedQuery(name = "Person.getByPhone", query = "select p from Person p where p.id in(select a.person.id from Phone a where a.number like :number) ")
 })
 public class Person implements Serializable {
 

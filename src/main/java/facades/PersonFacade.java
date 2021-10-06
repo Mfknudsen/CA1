@@ -7,19 +7,22 @@ import entities.Person;
 import entities.Phone;
 import interfaces.IFacade;
 
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+
 import utils.EMF_Creator;
 
-public class PersonFacade implements IFacade <PersonDTO>{
+public class PersonFacade implements IFacade<PersonDTO> {
 
     private static PersonFacade instance;
     private static EntityManagerFactory emf;
-    
-    private PersonFacade() {}
-    
+
+    private PersonFacade() {
+    }
+
     public static PersonFacade getInstance(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
@@ -27,8 +30,8 @@ public class PersonFacade implements IFacade <PersonDTO>{
         }
         return instance;
     }
-    
-    public PersonDTO create(PersonDTO hobbyDTO){
+
+    public PersonDTO create(PersonDTO hobbyDTO) {
         Person person = new Person(hobbyDTO.getEmail(), hobbyDTO.getFirstName(), hobbyDTO.getLastName());
         EntityManager em = emf.createEntityManager();
         try {
@@ -41,17 +44,17 @@ public class PersonFacade implements IFacade <PersonDTO>{
         return new PersonDTO(person);
     }
 
-    public PersonDTO getById(long id){
+    public PersonDTO getById(long id) {
         EntityManager em = emf.createEntityManager();
         return new PersonDTO(em.find(Person.class, id));
     }
-    
-    public long getCount(){
+
+    public long getCount() {
         EntityManager em = emf.createEntityManager();
-        try{
-            long personCount = (long)em.createNamedQuery("Person.getCount").getSingleResult();
+        try {
+            long personCount = (long) em.createNamedQuery("Person.getCount").getSingleResult();
             return personCount;
-        }finally{  
+        } finally {
             em.close();
         }
     }
@@ -137,8 +140,8 @@ public class PersonFacade implements IFacade <PersonDTO>{
     public Hobby getHobbyByName(String string) {
         return null;
     }
-    
-    public List<PersonDTO> getAll(){
+
+    public List<PersonDTO> getAll() {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Person> query = em.createNamedQuery("Person.getAll", Person.class);
         List<Person> allPersons = query.getResultList();
@@ -146,17 +149,30 @@ public class PersonFacade implements IFacade <PersonDTO>{
     }
 
     @Override
-    public List<PersonDTO> getSpecific(String name) {
+    public List<PersonDTO> getSpecific(String valueType, String value) {
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Person> query = em.createNamedQuery("Person.getPerson", Person.class);
-        query.setParameter("firstName", name);
-        List<Person> persons = query.getResultList();
-        return PersonDTO.getDtos(persons);
+
+        if (valueType.equals("FirstName")) {
+            TypedQuery<Person> query = em.createNamedQuery("Person.getPerson", Person.class);
+            query.setParameter("firstName", value);
+            List<Person> persons = query.getResultList();
+            return PersonDTO.getDtos(persons);
+        } else if (valueType.equals("Phone")) {
+            TypedQuery<Person> query = em.createNamedQuery("Person.getByPhone", Person.class);
+            query.setParameter("number", "22222222");
+            System.out.println(query.getResultList().size());
+            Person person = query.getSingleResult();
+            return PersonDTO.getDtos(Collections.singletonList(person));
+        } else {
+        }
+
+
+        return null;
     }
-    
+
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
         PersonFacade PersonFacade = getInstance(emf);
-        PersonFacade.getAll().forEach(dto->System.out.println(dto));
+        PersonFacade.getAll().forEach(dto -> System.out.println(dto));
     }
 }

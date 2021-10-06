@@ -70,7 +70,7 @@ public class AddressFacade implements IFacade <AddressDTO>{
         addressFacade.getAll().forEach(dto->System.out.println(dto));
     }
 
-    public List<AddressDTO> getSpecific(String street) {
+    public List<AddressDTO> getSpecific(String valueType, String street) {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Address> query = em.createNamedQuery("Address.getByStreet", Address.class);
         query.setParameter("street", street);

@@ -26,7 +26,7 @@ public class Endpoints {
     @Produces("application/json")
     public String base() {
         List<PersonDTO> persons = personFacade.getAll();
-        
+
         return GSON.toJson(persons);
     }
 
@@ -42,7 +42,10 @@ public class Endpoints {
     @GET
     @Produces("application/json")
     public String getByPhone(@PathParam("phone") int number) {
-        return "user";
+        System.out.println("\n" + number + "\n");
+        List<PersonDTO> list = personFacade.getSpecific("Phone", "" + number);
+        PersonDTO person = list.get(0);
+        return GSON.toJson(person);
     }
 
     @Path("byHobby/{hobby}")

@@ -65,7 +65,7 @@ public class HobbyFacade implements IFacade<HobbyDTO> {
     }
 
     @Override
-    public List<HobbyDTO> getSpecific(String one) {
+    public List<HobbyDTO> getSpecific(String one, String two) {
         return null;
     }
 

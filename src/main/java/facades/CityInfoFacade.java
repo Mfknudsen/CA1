@@ -65,7 +65,7 @@ public class CityInfoFacade implements IFacade<CityInfoDTO> {
     }
 
     @Override
-    public List<CityInfoDTO> getSpecific(String one) {
+    public List<CityInfoDTO> getSpecific(String valueType,String value) {
         return null;
     }
 

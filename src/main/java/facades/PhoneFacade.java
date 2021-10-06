@@ -66,7 +66,7 @@ public class PhoneFacade implements IFacade<PhoneDTO> {
     }
 
     @Override
-    public List<PhoneDTO> getSpecific(String one) {
+    public List<PhoneDTO> getSpecific(String one, String two) {
         return null;
     }
 
