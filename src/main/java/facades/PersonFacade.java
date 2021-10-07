@@ -49,6 +49,10 @@ public class PersonFacade implements IFacade<PersonDTO> {
         return new PersonDTO(em.find(Person.class, id));
     }
 
+    public void Edit(PersonDTO personDTO){
+        System.out.println(personDTO);
+    }
+
     public long getCount() {
         EntityManager em = emf.createEntityManager();
         try {

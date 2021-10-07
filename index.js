@@ -1,24 +1,86 @@
+const btnContainer = document.getElementById("btnContainer")
 const divContainer = document.getElementById("divContainer");
 
-//Buttons
-const btnUserA = document.getElementById("allUsers");
-const btnUserID = document.getElementById("userByID");
-const btnUserP = document.getElementById("userByPhone");
-const btnCities = document.getElementById("cities");
+getPage();
 
 //URLs
 const urlUsersA = "http://localhost:8080/devops_starter_war_exploded/api/users/";
 const urlUserID = "http://localhost:8080/devops_starter_war_exploded/api/users/byID/";
 const urlUserP = "http://localhost:8080/devops_starter_war_exploded/api/users/byPhone/";
+const urlUsersH = "http://localhost:8080/devops_starter_war_exploded/api/users/byHobby/";
 const urlCitiesA = "http://localhost:8080/devops_starter_war_exploded/api/cities/";
-
-//Clicks
-btnUserA.onclick = () => showUsers();
-btnUserID.onsubmit = (evt) => { evt.preventDefault(); showUserByID(document.getElementById("userID").value)};
-btnUserP.onsubmit = (evt) => { evt.preventDefault(); showUserByPhone(document.getElementById("phoneNumber").value)} 
-btnCities.onclick = () => showCities();
+const urlUserEdit = "http://localhost:8080/devops_starter_war_exploded/api/users/edit/";
 
 //Functions
+function getPage() {
+    btnContainer.innerHTML = `        
+    <button id = "allUsers">Get All User</button>
+    <form action="" method="get" id="userByID">
+        <input type="number" name="" id="userID" value="0">
+        <input type="submit" value="Get User By ID">
+    </form>
+    <form action="" method="get" id="userByPhone">
+        <input type="number" name="" id="phoneNumber" value="0">
+        <input type="submit" value="Get User By Phone Number">
+    </form>
+    <form action="" method="get" id="userByHobby">
+        <input type="text" name="" id="hobbyName" value="">
+        <input type="submit" value="Get User Count By Hobby">
+    </form>
+    <button id = "cities">Get Cities</button>
+    <button id = "btnEdit">Edit User</button>
+    `;
+    divContainer.innerHTML = "";
+
+    //Buttons
+    btnUserA = document.getElementById("allUsers");
+    btnUserID = document.getElementById("userByID");
+    btnUserP = document.getElementById("userByPhone");
+    btnUsersH = document.getElementById("userByHobby");
+    btnCities = document.getElementById("cities");
+    btnEdit = document.getElementById("btnEdit");
+
+    //Clicks
+    btnUserA.onclick = () => showUsers();
+    btnUserID.onsubmit = (evt) => { evt.preventDefault(); showUserByID(document.getElementById("userID").value)};
+    btnUserP.onsubmit = (evt) => { evt.preventDefault(); showUserByPhone(document.getElementById("phoneNumber").value)} 
+    btnUsersH.onsubmit = (evt) => { evt.preventDefault(); showUsersByHobby(document.getElementById("hobbyName").value)} 
+    btnCities.onclick = () => showCities();
+    btnEdit.onclick = () => editPage();
+}
+
+function editPage() {
+    btnContainer.innerHTML = `
+    <button id = "cancel">Cancel</button>
+    <form id = "editForm">
+        <p>ID</p>
+        <input type="number" id="id">
+        <p>Email</p>
+        <input type="text" id="email">
+        <p>First Name</p>
+        <input type="text" id="firstName">
+        <p>Last name</p>            
+        <input type="text" id="lastName">
+        <input type="submit" value="Edit By ID">
+    </form>
+    `;
+    divContainer.innerHTML = "";
+
+    //Buttons
+    btnCancel = document.getElementById("cancel");
+    btnSubmit = document.getElementById("editForm");
+
+    //Clicks
+    btnCancel.onclick = () => getPage();
+    btnSubmit.onsubmit = (evt) => {evt.preventDefault(); 
+        editUser(
+            document.getElementById("id").value,
+            document.getElementById("email").value,
+            document.getElementById("firstName").value,
+            document.getElementById("lastName").value
+        )};
+}
+
 function showUsers(){
     fetch(urlUsersA)
     .then(res => res.json())
@@ -45,6 +107,12 @@ function showUserByID(id){
     fetch(urlUserID + id)
     .then(res => res.json())
     .then(user => {
+        if(user["id"] == undefined){
+            divContainer.innerHTML = "There were no persons with the giving id to display"
+            
+            return;
+        }
+
         let htmlString = `<table frame ="void", rules = "rows"><th>ID</th><th>Email</th><th>First Name</th><th>Last Name</th>`;
             
         htmlString += `<tr><td>${user["id"]}</td><td>${user["email"]}</td><td>${user["firstName"]}</td><td>${user["lastName"]}</td></tr>`;
@@ -59,12 +127,27 @@ function showUserByPhone(phoneNumber){
     fetch(urlUserP + phoneNumber)
     .then(res => res.json())
     .then(user => {
+        if(user["id"] == undefined){
+            divContainer.innerHTML = "There were no persons with the giving phone number to display"
+            
+            return;
+        }
+
         let htmlString = `<table frame ="void", rules = "rows"><th>ID</th><th>Email</th><th>First Name</th><th>Last Name</th>`;
             
         htmlString += `<tr><td>${user["id"]}</td><td>${user["email"]}</td><td>${user["firstName"]}</td><td>${user["lastName"]}</td></tr>`;
             
         htmlString += "</table>";
 
+        divContainer.innerHTML = htmlString;
+    });
+}
+
+function showUsersByHobby(hobbyName){
+    fetch(urlUsersH + hobbyName)
+    .then(res => res.json())
+    .then(data => {
+        htmlString = "There is a total of " + data + " persons who has this hobby";
         divContainer.innerHTML = htmlString;
     });
 }
@@ -90,4 +173,22 @@ function showCities(){
 
         divContainer.innerHTML = htmlString;
     });
+}
+
+function editUser(id, email, firstName, lastName){
+    let object = {id: id, email: email, firstName: firstName, lastName}
+
+    h = new XMLHttpRequest();
+    h.open('PUT', urlUserEdit, true)
+    h.setRequestHeader('Content-Type', 'application/json');
+    h
+    h.onreadystatechange = function () { //Call a function when the state changes.
+        if (h.readyState == 4 && h.status == 200) {
+            alert(h.responseText);
+        }
+    }
+
+    h.send(JSON.stringify(object))
+
+    console.log(JSON.stringify(object));
 }
