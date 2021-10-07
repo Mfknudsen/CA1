@@ -18,12 +18,8 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-
-import com.mysql.cj.xdevapi.Statement;
 
 import utils.EMF_Creator;
 import utils.ScriptRunner;
