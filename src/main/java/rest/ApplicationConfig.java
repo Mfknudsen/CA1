@@ -6,7 +6,6 @@ import javax.ws.rs.core.Application;
 
 @ApplicationPath("/api")
 public class ApplicationConfig extends Application {
-
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();
@@ -25,6 +24,7 @@ public class ApplicationConfig extends Application {
         resources.add(org.glassfish.jersey.server.wadl.internal.WadlResource.class);
         resources.add(rest.Endpoints.class);
         resources.add(rest.Cities.class);
+        resources.add(cors.CORSFilter.class);
     }
-    
 }
+
