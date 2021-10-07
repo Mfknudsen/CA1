@@ -39,28 +39,6 @@ public class Populator {
 
     }
 
-    public static void populateHobbies() {
-        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-        EntityManager em = emf.createEntityManager();
-        em.createQuery("BULK INSERT startcode.Hobby " +
-                "FROM '../resources/hobbyScript.sql' " +
-                "WITH " +
-                "( " +
-                "ROWTERMINATOR ='\n' " +
-                ")");
-    }
-
-    public static void populateZip() {
-        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-        EntityManager em = emf.createEntityManager();
-        em.createQuery("BULK INSERT startcode.CityInfo " +
-                "FROM '../resources/zipScript.sql' " +
-                "WITH " +
-                "( " +
-                "ROWTERMINATOR ='\n' " +
-                ")");
-    }
-
     public static void main(String[] args) {
         populate();
     }
