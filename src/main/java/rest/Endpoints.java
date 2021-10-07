@@ -31,6 +31,13 @@ public class Endpoints {
         return GSON.toJson(persons);
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void addPerson(String jsonString) throws Exception{
+        PersonDTO personDTO = Utility.json2DTO(jsonString);
+        personFacade.create(personDTO);
+    }
+
     @Path("byID/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -68,7 +75,6 @@ public class Endpoints {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void editPerson(String jsonString) throws Exception {
-
         PersonDTO personDTO = Utility.json2DTO(jsonString);
         personFacade.Edit(personDTO);
     }

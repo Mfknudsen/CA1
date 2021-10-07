@@ -4,7 +4,7 @@ const divContainer = document.getElementById("divContainer");
 getPage();
 
 //URLs
-const urlUsersA = "http://localhost:8080/devops_starter_war_exploded/api/users/";
+const urlUsers = "http://localhost:8080/devops_starter_war_exploded/api/users/";
 const urlUserID = "http://localhost:8080/devops_starter_war_exploded/api/users/byID/";
 const urlUserP = "http://localhost:8080/devops_starter_war_exploded/api/users/byPhone/";
 const urlUsersH = "http://localhost:8080/devops_starter_war_exploded/api/users/byHobby/";
@@ -15,6 +15,8 @@ const urlUserEdit = "http://localhost:8080/devops_starter_war_exploded/api/users
 function getPage() {
     btnContainer.innerHTML = `        
     <button id = "allUsers">Get All User</button>
+    <button id = "btnEdit">Edit User</button>
+    <button id = "btnAdd">Add User</button>
     <form action="" method="get" id="userByID">
         <input type="number" name="" id="userID" value="0">
         <input type="submit" value="Get User By ID">
@@ -28,7 +30,6 @@ function getPage() {
         <input type="submit" value="Get User Count By Hobby">
     </form>
     <button id = "cities">Get Cities</button>
-    <button id = "btnEdit">Edit User</button>
     `;
     divContainer.innerHTML = "";
 
@@ -39,6 +40,7 @@ function getPage() {
     btnUsersH = document.getElementById("userByHobby");
     btnCities = document.getElementById("cities");
     btnEdit = document.getElementById("btnEdit");
+    btnAdd = document.getElementById("btnAdd");
 
     //Clicks
     btnUserA.onclick = () => showUsers();
@@ -47,6 +49,7 @@ function getPage() {
     btnUsersH.onsubmit = (evt) => { evt.preventDefault(); showUsersByHobby(document.getElementById("hobbyName").value)} 
     btnCities.onclick = () => showCities();
     btnEdit.onclick = () => editPage();
+    btnAdd.onclick = () => addPage();
 }
 
 function editPage() {
@@ -81,8 +84,36 @@ function editPage() {
         )};
 }
 
+function addPage() {
+    btnContainer.innerHTML = `
+    <button id = "cancel">Cancel</button>
+    <form id = "addForm">
+        <p>Email</p>
+        <input type="text" id="email">
+        <p>First Name</p>
+        <input type="text" id="firstName">
+        <p>Last Name</p>
+        <input type="text" id="lastName">
+        <input type="submit" value="Add User">
+    </form>
+    `;
+    divContainer.innerHTML = ``;
+
+    //Buttons
+    btnCancel = document.getElementById("cancel");
+    btnSubmit = document.getElementById("addForm")
+
+    //Clicks
+    btnCancel.onclick = () => getPage();
+    btnSubmit.onsubmit = (evt) => {evt.preventDefault(); addUsers(
+        document.getElementById("email").value,
+        document.getElementById("firstName").value,
+        document.getElementById("lastName").value
+    )};
+}
+
 function showUsers(){
-    fetch(urlUsersA)
+    fetch(urlUsers)
     .then(res => res.json())
     .then(data => {
         if(data.length == 0){
@@ -175,6 +206,22 @@ function showCities(){
     });
 }
 
+function addUsers(email, firstName, lastName){
+    let object = {email: email, firstName: firstName, lastName}
+console.log(JSON.stringify(object));
+    h = new XMLHttpRequest();
+    h.open('POST', urlUsers, true)
+    h.setRequestHeader('Content-Type', 'application/json');
+    h
+    h.onreadystatechange = function () { //Call a function when the state changes.
+        if (h.readyState == 4 && h.status == 200) {
+            alert(h.responseText);
+        }
+    }
+
+    h.send(JSON.stringify(object))
+}
+
 function editUser(id, email, firstName, lastName){
     let object = {id: id, email: email, firstName: firstName, lastName}
 
@@ -189,6 +236,4 @@ function editUser(id, email, firstName, lastName){
     }
 
     h.send(JSON.stringify(object))
-
-    console.log(JSON.stringify(object));
 }
