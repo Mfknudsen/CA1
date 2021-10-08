@@ -1,6 +1,7 @@
 package facades;
 
 import dtos.PersonDTO;
+import edu.emory.mathcs.backport.java.util.Collections;
 import entities.Person;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,7 +77,17 @@ public class PersonFacadeTest {
         assertEquals(expected2.size(), actual.size());
         assertEquals(expected1.size(), actual.size());
         boolean expectedResult = true;
-        boolean actualResult = actual.containsAll(expected2);
+        Comparator comparator = new Comparator<PersonDTO>(){
+            @Override
+            public int compare(PersonDTO o1, PersonDTO o2) {
+                return (int) (o1.getId() - o2.getId());
+            }
+        };
+
+        Collections.sort(expected2, comparator);
+        Collections.sort(actual, comparator);
+
+        boolean actualResult = actual.equals(expected2);
         assertEquals(expectedResult, actualResult);
     }
 }
