@@ -76,18 +76,17 @@ public class PersonFacadeTest {
         List<PersonDTO> actual = facade.getAll();
         assertEquals(expected2.size(), actual.size());
         assertEquals(expected1.size(), actual.size());
-        boolean expectedResult = true;
-        Comparator comparator = new Comparator<PersonDTO>(){
-            @Override
-            public int compare(PersonDTO o1, PersonDTO o2) {
-                return (int) (o1.getId() - o2.getId());
-            }
-        };
+        
+        Comparator comparator = (Comparator<PersonDTO>) (o1, o2) -> (int) (o1.getId() - o2.getId());
 
         Collections.sort(expected2, comparator);
         Collections.sort(actual, comparator);
 
-        boolean actualResult = actual.equals(expected2);
-        assertEquals(expectedResult, actualResult);
+
+        for (int i = 0; i < expected2.size(); i++){
+            assertEquals(expected2.get(i).getEmail(), actual.get(i).getEmail());
+            assertEquals(expected2.get(i).getFirstName(), actual.get(i).getFirstName());
+            assertEquals(expected2.get(i).getLastName(), actual.get(i).getLastName());
+        }
     }
 }
