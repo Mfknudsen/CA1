@@ -1,6 +1,6 @@
 package rest;
 
-import entities.Address;
+import entities.Person;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
@@ -23,11 +23,11 @@ import org.junit.jupiter.api.Test;
 //Uncomment the line below, to temporarily disable this test
 //@Disabled
 
-public class AddressResourceTest {
+public class EndpointResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
-    private static Address address1, address2, address3;
+    private static Person person1, person2, person3;
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -64,15 +64,15 @@ public class AddressResourceTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        address1 = new Address("Kihn Roads","3324");
-        address2 = new Address("Davonte Ridges","23");
-        address3 = new Address("Halie Summit","5");
+        person1 = new Person("Mozelle_Wuckert@hotmail.com","Pearline","Effertz");
+        person2 = new Person("Virgie_Rath@yahoo.com","Easton","Metz");
+        person3 = new Person("Estevan_Glover36@yahoo.com","Matilda","Feest");
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Address.deleteAllRows").executeUpdate();
-            em.persist(address1);
-            em.persist(address2);
-            em.persist(address3);
+            em.persist(person1);
+            em.persist(person2);
+            em.persist(person3);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -103,6 +103,6 @@ public class AddressResourceTest {
                 .get("/users/count").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("count", equalTo(2));
+                .body("count", equalTo(5));
     }
 }
