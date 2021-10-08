@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "Person")
 @NamedQueries({
-        @NamedQuery(name = "Person.deleteAllRows", query = "DELETE FROM Person"),
+        @NamedQuery(name = "Person.deleteAllRows", query = "DELETE p FROM Person p"),
         @NamedQuery(name = "Person.getCount", query = "SELECT COUNT(p) FROM Person p"),
         @NamedQuery(name = "Person.getPerson", query = "SELECT p FROM Person p where p.firstName LIKE :firstName"),
         @NamedQuery(name = "Person.getAll", query = "SELECT p FROM Person p"),
