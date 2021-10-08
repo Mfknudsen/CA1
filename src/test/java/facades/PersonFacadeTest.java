@@ -76,7 +76,7 @@ public class PersonFacadeTest {
         List<PersonDTO> actual = facade.getAll();
         assertEquals(expected2.size(), actual.size());
         assertEquals(expected1.size(), actual.size());
-        
+
         Comparator comparator = (Comparator<PersonDTO>) (o1, o2) -> (int) (o1.getId() - o2.getId());
 
         Collections.sort(expected2, comparator);
