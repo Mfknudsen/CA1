@@ -10,6 +10,7 @@ import utils.EMF_Creator;
 import utils.Utility;
 
 import javax.persistence.EntityManagerFactory;
+import javax.sound.midi.MetaEventListener;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -77,5 +78,12 @@ public class Endpoints {
     public void editPerson(String jsonString) throws Exception {
         PersonDTO personDTO = Utility.json2DTO(jsonString);
         personFacade.Edit(personDTO);
+    }
+
+    @Path("count")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public long getCount() {
+        return personFacade.getCount();
     }
 }
