@@ -67,15 +67,15 @@ public class PersonFacadeTest {
 
     @Test
     public void testGetAll() throws Exception {
-        List<Person> expected = new ArrayList<>();
-        expected.add(person1);
-        expected.add(person2);
+        List<Person> expected1 = new ArrayList<>();
+        expected1.add(person1);
+        expected1.add(person2);
+        List<PersonDTO> expected2 = PersonDTO.getDtos(expected1);
         List<PersonDTO> actual = facade.getAll();
-        assertEquals(expected.size(), actual.size());
-        for (int i = 0; i < actual.size(); i++) {
-            assertEquals(expected.get(i).getEmail(), actual.get(i).getEmail());
-            assertEquals(expected.get(i).getFirstName(), actual.get(i).getFirstName());
-            assertEquals(expected.get(i).getLastName(), actual.get(i).getLastName());
-        }
+        assertEquals(expected2.size(), actual.size());
+        assertEquals(expected1.size(), actual.size());
+        boolean expectedResult = true;
+        boolean actualResult = actual.containsAll(expected2);
+        assertEquals(expectedResult, actualResult);
     }
 }
