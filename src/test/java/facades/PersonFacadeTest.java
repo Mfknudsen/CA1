@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PersonFacadeTest {
     private static EntityManagerFactory emf;
     private static PersonFacade facade;
+    private static Person person1, person2;
 
     public PersonFacadeTest() {
     }
@@ -33,12 +34,13 @@ public class PersonFacadeTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
+        person1 = new Person("Herta_Jenkins@example.org", "Julian", "Reilly");
+        person1 = new Person("Myrtle47@example.net", "Eleonore", "Predovic");
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Person.deleteAllRows").executeUpdate();
-            em.persist(new Person("madsMail", "Mads", "M"));
-            em.persist(new Person("albertMail", "Albert", "A"));
-
+            em.persist(person1);
+            em.persist(person2);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -51,7 +53,7 @@ public class PersonFacadeTest {
 
     @Test
     public void testGetByID() throws Exception {
-        int id = 1;
+        long id = person1.getId();
         PersonDTO personDTO = facade.getById(id);
         assertEquals(id, personDTO.getId());
     }
@@ -65,9 +67,9 @@ public class PersonFacadeTest {
 
     @Test
     public void testGetAll() throws Exception {
-        List<PersonDTO> expected = new ArrayList<>();
-        expected.add(new PersonDTO(new Person("madsMail", "Mads", "M")));
-        expected.add(new PersonDTO(new Person("albertMail", "Albert", "A")));
+        List<Person> expected = new ArrayList<>();
+        expected.add(person1);
+        expected.add(person2);
         List<PersonDTO> actual = facade.getAll();
         assertEquals(expected.size(), actual.size());
         for (int i = 0; i < actual.size(); i++) {
