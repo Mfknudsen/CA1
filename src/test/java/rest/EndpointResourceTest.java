@@ -8,13 +8,14 @@ import io.restassured.parsing.Parser;
 import java.net.URI;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.core.Application;
 import javax.ws.rs.core.UriBuilder;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasItem;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,7 @@ public class EndpointResourceTest {
     private static EntityManagerFactory emf;
 
     static HttpServer startServer() {
-        ResourceConfig rc = ResourceConfig.forApplication(new Application());
+        ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
         return GrizzlyHttpServerFactory.createHttpServer(BASE_URI, rc);
     }
 
@@ -69,7 +70,7 @@ public class EndpointResourceTest {
         person3 = new Person("Estevan_Glover36@yahoo.com","Matilda","Feest");
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Address.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Person.deleteAllRows").executeUpdate();
             em.persist(person1);
             em.persist(person2);
             em.persist(person3);
@@ -82,7 +83,11 @@ public class EndpointResourceTest {
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server UP");
-        given().when().get("/users").then().statusCode(200);
+        given()
+                .when()
+                .get("/users")
+                .then()
+                .statusCode(200);
     }
 
     //This test assumes the database contains two rows
@@ -93,7 +98,10 @@ public class EndpointResourceTest {
                 .get("/users/").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("msg", equalTo("[user, user, ...]"));
+                .body("id", hasItems(person1.getId().intValue(), person2.getId().intValue(), person3.getId().intValue()))
+                .body("email", hasItem(person1.getEmail()))
+                .body("firstName", hasItem(person1.getFirstName()))
+                .body("lastName", hasItem(person1.getLastName()));
     }
 
     @Test
@@ -103,6 +111,6 @@ public class EndpointResourceTest {
                 .get("/users/count").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("count", equalTo(5));
+                .body(equalTo("3"));
     }
 }
