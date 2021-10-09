@@ -149,8 +149,8 @@
                 <configuration>
                     <server>TomcatServer</server>
                     <url>${remote.server}</url>
-                    <username>${remote.REMOTE_USER}</username>
-                    <password>${remote.REMOTE_PW}</password>
+                    <username>mfknudsen</username>
+                    <password>ftu58fqs</password>
                     <update>true</update>
                 </configuration>
             </plugin>
