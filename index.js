@@ -4,14 +4,12 @@ const divContainer = document.getElementById("divContainer");
 getPage();
 
 //URLs
-const urlUsers = "http://localhost:8080/devops_starter_war_exploded/api/users/";
-const urlUserID = "http://localhost:8080/devops_starter_war_exploded/api/users/byID/";
-const urlUserP = "http://localhost:8080/devops_starter_war_exploded/api/users/byPhone/";
-const urlUsersH = "http://localhost:8080/devops_starter_war_exploded/api/users/byHobby/";
-const urlCitiesA = "http://localhost:8080/devops_starter_war_exploded/api/cities/";
-const urlUserEdit = "http://localhost:8080/devops_starter_war_exploded/api/users/edit/";
-
-//Functions
+const urlUsers =    "http://mfknudsen.live/devops_starter/api/users/";
+const urlUserID =   "http://mfknudsen.live/devops_starter/api/users/byID/";
+const urlUserP =    "http://mfknudsen.live/devops_starter/api/users/byPhone/";
+const urlUsersH =   "http://mfknudsen.live/devops_starter/api/users/byHobby/";
+const urlCitiesA =  "http://mfknudsen.live/devops_starter/api/cities/";
+const urlUserEdit = "http://mfknudsen.live/devops_starter/api/users/edit/";
 function getPage() {
     btnContainer.innerHTML = `        
     <button id = "allUsers">Get All User</button>
@@ -113,7 +111,11 @@ function addPage() {
 }
 
 function showUsers(){
-    fetch(urlUsers)
+    h = new XMLHttpRequest();
+    h.open('GET', urlUsers, true)
+    h.setRequestHeader(`Content-Type`,`application/json`);
+
+    fetch(h)
     .then(res => res.json())
     .then(data => {
         if(data.length == 0){
@@ -135,7 +137,11 @@ function showUsers(){
 }
 
 function showUserByID(id){
-    fetch(urlUserID + id)
+    h = new XMLHttpRequest();
+    h.open('GET', urlUserID + id, true)
+    h.setRequestHeader(`Content-Type`,`application/json`);
+
+    fetch(h)
     .then(res => res.json())
     .then(user => {
         if(user["id"] == undefined){
@@ -155,6 +161,10 @@ function showUserByID(id){
 }
 
 function showUserByPhone(phoneNumber){
+    h = new XMLHttpRequest();
+    h.open('GET', urlUserP + phoneNumber, true)
+    h.setRequestHeader(`Content-Type`,`application/json`);
+
     fetch(urlUserP + phoneNumber)
     .then(res => res.json())
     .then(user => {
@@ -175,7 +185,11 @@ function showUserByPhone(phoneNumber){
 }
 
 function showUsersByHobby(hobbyName){
-    fetch(urlUsersH + hobbyName)
+    h = new XMLHttpRequest();
+    h.open('GET', urlUsersH + hobbyName, true)
+    h.setRequestHeader(`Content-Type`,`application/json`);
+
+    fetch(h)
     .then(res => res.json())
     .then(data => {
         htmlString = "There is a total of " + data + " persons who has this hobby";
@@ -184,7 +198,11 @@ function showUsersByHobby(hobbyName){
 }
 
 function showCities(){
-    fetch(urlCitiesA)
+    h = new XMLHttpRequest();
+    h.open('GET', urlCitiesA, true)
+    h.setRequestHeader(`Content-Type`,`application/json`);
+    
+    fetch(h)
     .then(res => res.json())
     .then(data => {
 
@@ -228,7 +246,7 @@ function editUser(id, email, firstName, lastName){
     h = new XMLHttpRequest();
     h.open('PUT', urlUserEdit, true)
     h.setRequestHeader('Content-Type', 'application/json');
-    h
+    
     h.onreadystatechange = function () { //Call a function when the state changes.
         if (h.readyState == 4 && h.status == 200) {
             alert(h.responseText);
