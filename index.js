@@ -4,14 +4,12 @@ const divContainer = document.getElementById("divContainer");
 getPage();
 
 //URLs
-const urlUsers = "http://localhost:8080/devops_starter_war_exploded/api/users/";
-const urlUserID = "http://localhost:8080/devops_starter_war_exploded/api/users/byID/";
-const urlUserP = "http://localhost:8080/devops_starter_war_exploded/api/users/byPhone/";
-const urlUsersH = "http://localhost:8080/devops_starter_war_exploded/api/users/byHobby/";
-const urlCitiesA = "http://localhost:8080/devops_starter_war_exploded/api/cities/";
-const urlUserEdit = "http://localhost:8080/devops_starter_war_exploded/api/users/edit/";
-
-//Functions
+const urlUsers =    "http://mfknudsen.live/devops_starter/api/users/";
+const urlUserID =   "http://mfknudsen.live/devops_starter/api/users/byID/";
+const urlUserP =    "http://mfknudsen.live/devops_starter/api/users/byPhone/";
+const urlUsersH =   "http://mfknudsen.live/devops_starter/api/users/byHobby/";
+const urlCitiesA =  "http://mfknudsen.live/devops_starter/api/cities/";
+const urlUserEdit = "http://mfknudsen.live/devops_starter/api/users/edit/";
 function getPage() {
     btnContainer.innerHTML = `        
     <button id = "allUsers">Get All User</button>
